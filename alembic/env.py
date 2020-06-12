@@ -20,7 +20,7 @@ fileConfig(config.config_file_name)
 import os, sys
 
 sys.path.append(os.getcwd())
-from app.db.database import Base
+from app.db.base import Base
 
 target_metadata = Base.metadata
 
