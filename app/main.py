@@ -1,23 +1,28 @@
-from fastapi import Depends, FastAPI, Header, HTTPException
+from fastapi import FastAPI
 
 from .routers import items, users, emails
 
 app = FastAPI()
 
-
-async def get_token_header(x_token: str = Header(...)):
-    if x_token != "fake-super-secret-token":
-        raise HTTPException(status_code=400, detail="X-Token header invalid")
-
-
-app.include_router(users.router)
 app.include_router(
-    items.router,
-    prefix="/items",
-    tags=["items"],
-    dependencies=[Depends(get_token_header)],
-    responses={404: {"description": "Not found"}},
+    users.router, prefix="/api/v1/users", tags=["users"],
 )
 app.include_router(
-    emails.router, prefix="/emails", tags=["emails"],
+    items.router, prefix="/api/v1/items", tags=["items"],
 )
+app.include_router(
+    items.router, prefix="/api/v2/items", tags=["items"],
+)
+app.include_router(
+    emails.router, prefix="/api/v1/emails", tags=["emails"],
+)
+
+
+@app.on_event("startup")
+async def startup():
+    await database.connect()
+
+
+@app.on_event("shutdown")
+async def shutdown():
+    await database.disconnect()

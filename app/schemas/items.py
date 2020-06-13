@@ -19,8 +19,9 @@ class ItemUpdate(ItemBase):
     pass
 
 
-# Properties shared by models stored in DB
-class ItemInDBBase(ItemBase):
+## Properties shared by models stored in DB
+# class ItemInDBBase(ItemBase):
+class Item(ItemBase):
     id: int
     title: str
     owner_id: int
@@ -29,11 +30,11 @@ class ItemInDBBase(ItemBase):
         orm_mode = True
 
 
-# Properties to return to client
-class Item(ItemInDBBase):
-    pass
-
-
-# Properties properties stored in DB
-class ItemInDB(ItemInDBBase):
-    pass
+## Properties to return to client
+# class Item(ItemInDBBase):
+#    pass
+#
+#
+## Properties properties stored in DB
+# class ItemInDB(ItemInDBBase):
+#    pass
