@@ -11,14 +11,14 @@ app = FastAPI(
     version="1.0.0",
     # The openapi schema is usually served from /openapi.json
     # You can change the url or disable it with openapi_url
-    openapi_url=None,
+    # openapi_url=None,
     # Swagger UI: served at /docs.
     # You can set its URL with the parameter docs_url.
     # You can disable it by setting docs_url=None.
     # ReDoc: served at /redoc.
     # You can set its URL with the parameter redoc_url.
     # You can disable it by setting redoc_url=None.
-    docs_url="/docs",
+    # docs_url="/docs",
     redoc_url=None,
 )
 
@@ -28,36 +28,35 @@ async def root():
     return {"message": "Hello World!"}
 
 
-class Item(BaseModel):
+class Driver(BaseModel):
     name: str
     description: str = None
-    price: float
-    tax: float = None
+    age: int
 
-    @validator("price")
-    def price_must_be_positive(cls, value):
-        if value <= 0:
-            raise ValueError(f"We expect price >= 0, we received {value}")
+    @validator("age")
+    def age_must_be_positive(cls, value):
+        if value <= 18:
+            raise ValueError(f"We expect age >= 18, we received {value}")
         return value
 
 
-@app.get("/items/{item_id}", tags=["items"])
-async def read_item(item_id: int):
-    return {"item_id": item_id}
+@app.get("/drivers/{driver_id}", tags=["drivers"])
+async def read_driver(driver_id: int):
+    return {"driver_id": driver_id}
 
 
 @app.post(
-    "/items/",
-    response_model=Item,
-    summary="summary in decorator. Lets create some items",
+    "/drivers/",
+    response_model=Driver,
+    summary="summary in decorator. Lets create some drivers",
     response_description="description used in response in swagger UI",
-    tags=["items"],
+    tags=["drivers"],
 )
-async def create_item(item: Item):
+async def create_driver(driver: Driver):
     """
     # Example documentation
 
-    Create items that are super cool
+    Create drivers that drive cars
 
     This docstring is added as documentation in the swagger UI for this function. It renders markdown so you can do things like **bold**.
 
@@ -69,4 +68,4 @@ async def create_item(item: Item):
 
     Tags group these functions together in the swagger UI
     """
-    return item
+    return driver

@@ -16,5 +16,6 @@
 # Import all the models, so that Base has them before being
 # imported by Alembic
 from app.db.base_class import Base  # noqa
-from app.models.items import Item  # noqa
-from app.models.users import User  # noqa
+from app.models.cars import cars  # noqa
+from app.models.drivers import drivers  # noqa
+from app.models.trips import trips  # noqa

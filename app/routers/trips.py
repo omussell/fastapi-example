@@ -3,6 +3,13 @@ from time import sleep
 
 router = APIRouter()
 
+
+@router.get("/")
+async def read_trips():
+    return {"trips": []}
+
+
+# Example of using background tasks
 # can be async def or normal def function
 def write_notification(email: str, message=""):
     # lets pretend this is sending an email...
@@ -11,7 +18,7 @@ def write_notification(email: str, message=""):
     print(f"notification for {email}: {message}")
 
 
-@router.post("/{email}")
+@router.post("/{trip_id}")
 async def send_notification(email: str, background_tasks: BackgroundTasks):
     """
     Example of a request triggering another task in the background. 
