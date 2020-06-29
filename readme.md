@@ -28,3 +28,5 @@ uvicorn app.main:app
 Its a bit confusing when you first look at setting up FastAPI to use a database because it looks like you are duplicating a model with both pydantic and sqlalchemy. The reason for this is because FastAPI can function without a database, and without pydantic too. Pydantic models give you documentation, serialisation and validation. SQLAlchemy models are for interacting with the database.
 
 While they solve different problems, you can end up with duplicate looking classes doing effectively the same thing. However, the separation is that pydantic is purely for the web app validation, and sqlalchemy is purely for the SQL validation.
+
+This difference is bridged by [Pydantic's ORM_mode](https://pydantic-docs.helpmanual.io/usage/models/#orm-mode-aka-arbitrary-class-instances). When orm_mode is set to true on a pydantic model, pydantic understands the data returned by a sqlalchemy model. You can then declare the pydantic model in the `response_model` argument in your path operations. Then you will be able to return a database model and it will read data from it.
