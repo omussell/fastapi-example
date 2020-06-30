@@ -1,9 +1,15 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
-from sqlalchemy.orm import relationship
+# Standard Library
 from typing import Optional
-from pydantic import BaseModel
 
-from db.base_class import Base
+# Project
+from app.db.base_class import Base
+from pydantic import BaseModel
+from sqlalchemy import Boolean
+from sqlalchemy import Column
+from sqlalchemy import ForeignKey
+from sqlalchemy import Integer
+from sqlalchemy import String
+from sqlalchemy.orm import relationship
 
 
 # sqlalchemy
