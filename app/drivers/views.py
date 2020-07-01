@@ -4,7 +4,7 @@ from typing import List
 # Project
 import databases
 # import drivers.models
-from app.drivers.models import *
+from drivers.models import *
 from fastapi import APIRouter
 
 # SQLAlchemy specific code, as with any other app

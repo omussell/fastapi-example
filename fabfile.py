@@ -10,7 +10,7 @@ def build(c):
     with c.cd(git_root):
         c.run(
             f"mkdocs build",
-            env={"PATH": f"{git_root}/venv/bin", "PYTHONPATH": "/home/oem/fastapi-example"},
+            env={"PATH": f"{git_root}/venv/bin", "PYTHONPATH": "/home/oem/fastapi-example/app"},
         )
 
 
@@ -19,5 +19,13 @@ def serve(c):
     with c.cd(git_root):
         c.run(
             "mkdocs serve",
-            env={"PATH": f"{git_root}/venv/bin", "PYTHONPATH": "/home/oem/fastapi-example"},
+            env={"PATH": f"{git_root}/venv/bin", "PYTHONPATH": "/home/oem/fastapi-example/app"},
+        )
+
+@task()
+def run(c):
+    with c.cd(f"{git_root}/app"):
+        c.run(
+            "uvicorn main:app --reload",
+            env={"PATH": f"{git_root}/venv/bin", "PYTHONPATH": "/home/oem/fastapi-example/app"},
         )

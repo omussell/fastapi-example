@@ -2,7 +2,7 @@
 from typing import Optional
 
 # Project
-from app.db.base_class import Base
+from db.base_class import Base
 from pydantic import BaseModel
 from sqlalchemy import Boolean
 from sqlalchemy import Column

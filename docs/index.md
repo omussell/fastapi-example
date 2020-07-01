@@ -1,6 +1,6 @@
 # title
 asdf
 
-::: app.drivers.views.read_drivers
+::: drivers.views.read_drivers
     :docstring:
     :members:
