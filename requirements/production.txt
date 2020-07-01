@@ -1,4 +1,6 @@
 alembic
 fastapi
+httpx
+orm~=0.1
 sqlalchemy
 uvicorn
