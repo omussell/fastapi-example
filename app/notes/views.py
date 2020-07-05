@@ -3,8 +3,8 @@ from typing import List
 
 # Project
 import databases
-# import drivers.models
-from drivers.models import *
+# import notes.models
+from notes.models import *
 from fastapi import APIRouter
 
 # SQLAlchemy specific code, as with any other app
@@ -17,8 +17,8 @@ database = databases.Database(DATABASE_URL)
 router = APIRouter()
 
 
-@router.get("/", response_model=List[DriverBase], tags=["drivers"])
-async def read_drivers(url: str = None):
+@router.get("/", response_model=List[NoteBase], tags=["notes"])
+async def read_notes(url: str = None):
     """
     Summary line
 
@@ -33,11 +33,11 @@ async def read_drivers(url: str = None):
     * **url** - *optional* Optionally give the URL.
     """
     # return [{"username": "Foo"}, {"username": "Bar"}]
-    drivers = Driver.__table__.select()
-    return await database.fetch_all(drivers)
+    notes = Note.__table__.select()
+    return await database.fetch_all(notes)
 
 
-@router.get("/{driver_id}", response_model=DriverBase, tags=["drivers"])
-async def read_driver(driver_id: int):
-    # return {"driver": driver_id}
-    return await database.fetch(Driver)
+@router.get("/{note_id}", response_model=NoteBase, tags=["notes"])
+async def read_note(note_id: int):
+    # return {"note": note_id}
+    return await database.fetch(Note)

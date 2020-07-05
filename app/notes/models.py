@@ -13,8 +13,8 @@ from sqlalchemy.orm import relationship
 
 
 # sqlalchemy
-class Driver(Base):
-    __tablename__ = "drivers"
+class Note(Base):
+    __tablename__ = "notes"
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, unique=True, index=True)
@@ -28,10 +28,10 @@ class Driver(Base):
 # Then those classes can add on to it.
 ## Properties shared by models stored in DB
 # This is because we have to set the id for example.
-# We cant set the id when creating a driver, because its
+# We cant set the id when creating a note, because its
 # set by the DB. But we do want to be able to read it
 # after its created
-class DriverBase(BaseModel):
+class NoteBase(BaseModel):
     id: int
     name: str
 
@@ -39,11 +39,11 @@ class DriverBase(BaseModel):
         orm_mode = True
 
 
-# Properties to receive on driver creation
-class DriverCreate(DriverBase):
+# Properties to receive on note creation
+class NoteCreate(NoteBase):
     name: str
 
 
-# Properties to receive on driver update
-class DriverUpdate(DriverBase):
+# Properties to receive on note update
+class NoteUpdate(NoteBase):
     pass

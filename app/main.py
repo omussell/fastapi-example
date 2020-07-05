@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from drivers.views import router as drivers_router
+from notes.views import router as notes_router
 
 import databases
 
@@ -12,8 +12,18 @@ database = databases.Database(DATABASE_URL)
 
 app = FastAPI()
 
+@app.on_event("startup")
+async def startup():
+    await database.connect()
+
+
+@app.on_event("shutdown")
+async def shutdown():
+    await database.disconnect()
+
+
 app.include_router(
-    drivers_router, prefix="/api/v1/drivers", tags=["drivers"],
+    notes_router, prefix="/api/v1/notes", tags=["notes"],
 )
 
 
@@ -23,13 +33,3 @@ app.include_router(
 # app.include_router(
 #    cars_router, prefix="/api/v2/cars", tags=["cars"],
 # )
-
-
-@app.on_event("startup")
-async def startup():
-    await database.connect()
-
-
-@app.on_event("shutdown")
-async def shutdown():
-    await database.disconnect()

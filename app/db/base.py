@@ -18,5 +18,5 @@
 # from app.db.base_class import Base  # noqa
 from db.base_class import Base  # noqa
 
-# from app.models.drivers import drivers  # noqa
-from drivers import models  # noqa
+# from app.models.notes import notes  # noqa
+from notes import models  # noqa

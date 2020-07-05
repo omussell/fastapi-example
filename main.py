@@ -28,7 +28,7 @@ async def root():
     return {"message": "Hello World!"}
 
 
-class Driver(BaseModel):
+class Note(BaseModel):
     name: str
     description: str = None
     age: int
@@ -40,23 +40,23 @@ class Driver(BaseModel):
         return value
 
 
-@app.get("/drivers/{driver_id}", tags=["drivers"])
-async def read_driver(driver_id: int):
-    return {"driver_id": driver_id}
+@app.get("/notes/{note_id}", tags=["notes"])
+async def read_note(note_id: int):
+    return {"note_id": note_id}
 
 
 @app.post(
-    "/drivers/",
-    response_model=Driver,
-    summary="summary in decorator. Lets create some drivers",
+    "/notes/",
+    response_model=Note,
+    summary="summary in decorator. Lets create some notes",
     response_description="description used in response in swagger UI",
-    tags=["drivers"],
+    tags=["notes"],
 )
-async def create_driver(driver: Driver):
+async def create_note(note: Note):
     """
     # Example documentation
 
-    Create drivers that drive cars
+    Create notes for a todo list
 
     This docstring is added as documentation in the swagger UI for this function. It renders markdown so you can do things like **bold**.
 
@@ -68,4 +68,4 @@ async def create_driver(driver: Driver):
 
     Tags group these functions together in the swagger UI
     """
-    return driver
+    return note
