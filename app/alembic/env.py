@@ -21,9 +21,10 @@ import os, sys
 
 sys.path.append(os.getcwd())
 # from app.db.base import Base
-from db.base import Base
+#from db.db import metadata
+from db.db import *
 
-target_metadata = Base.metadata
+target_metadata = metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

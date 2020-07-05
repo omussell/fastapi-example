@@ -1,5 +1,5 @@
 # Standard Library
-from typing import List
+from typing import List, Optional
 
 # Project
 import databases
@@ -18,7 +18,7 @@ router = APIRouter()
 
 
 @router.get("/", response_model=List[NoteBase], tags=["notes"])
-async def read_notes(url: str = None):
+async def get_notes(description: Optional[str] = None):
     """
     Summary line
 
@@ -38,6 +38,16 @@ async def read_notes(url: str = None):
 
 
 @router.get("/{note_id}", response_model=NoteBase, tags=["notes"])
-async def read_note(note_id: int):
+async def get_note(note_id: int):
     # return {"note": note_id}
     return await database.fetch(Note)
+
+@router.post("/", response_model=, tags=["notes"])
+async def create_note(description: str = None):
+
+
+@router.put("/{note_id}", response_model=, tags=["notes"])
+async def update_note(description: str = None):
+
+@router.delete("/{note_id}", response_model=, tags=["notes"])
+async def update_note(description: str = None):

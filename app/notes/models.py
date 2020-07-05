@@ -2,48 +2,39 @@
 from typing import Optional
 
 # Project
-from db.base_class import Base
+from db.base import database, metadata
 from pydantic import BaseModel
-from sqlalchemy import Boolean
-from sqlalchemy import Column
-from sqlalchemy import ForeignKey
-from sqlalchemy import Integer
-from sqlalchemy import String
-from sqlalchemy.orm import relationship
+import sqlalchemy
+import databases
+import orm
 
 
 # sqlalchemy
-class Note(Base):
-    __tablename__ = "notes"
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, unique=True, index=True)
+class Note(orm.Model):
+    __tablename__ = "notes"
+    __database__ = database
+    __metadata__ = metadata
+
+    id = orm.Integer(primary_key=True, index=True)
+    text = orm.String(max_length=100)
+    completed = orm.Boolean(default=False)
 
 
 # pydantic
 
-
-# This class is for shared properties. Its means all
-# classes that inherit it will have the same properties.
-# Then those classes can add on to it.
-## Properties shared by models stored in DB
-# This is because we have to set the id for example.
-# We cant set the id when creating a note, because its
-# set by the DB. But we do want to be able to read it
-# after its created
 class NoteBase(BaseModel):
     id: int
-    name: str
+    text: str
+    completed: bool
 
     class Config:
         orm_mode = True
 
-
-# Properties to receive on note creation
 class NoteCreate(NoteBase):
-    name: str
+    text: str
+    completed: Optional[bool] = False
 
-
-# Properties to receive on note update
 class NoteUpdate(NoteBase):
-    pass
+    text: Optional[str]
+    completed: Optional[bool]

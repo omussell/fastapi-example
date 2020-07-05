@@ -1,14 +1,17 @@
 from fastapi import FastAPI
 
+from . import config
+
 from notes.views import router as notes_router
+
 
 import databases
 
 # SQLAlchemy specific code, as with any other app
-DATABASE_URL = "sqlite:///./test.db"
+#DATABASE_URL = "sqlite:///./test.db"
 # DATABASE_URL = "postgresql://user:password@postgresserver/db"
 
-database = databases.Database(DATABASE_URL)
+database = databases.Database(config.settings.database_url)
 
 app = FastAPI()
 
