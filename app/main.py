@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from . import config
+import config
 
 from notes.views import router as notes_router
 
