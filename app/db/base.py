@@ -2,5 +2,7 @@ import databases
 import orm
 import sqlalchemy
 
-database = databases.Database("sqlite:///sqlite.db")
+import config
+
+database = databases.Database(config.settings.database_url)
 metadata = sqlalchemy.MetaData()
