@@ -1,36 +1,25 @@
+# Standard Library
+import os
+import sys
 from logging.config import fileConfig
 
+# 3rd-party
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
+# Project
+import config as local_config
 from alembic import context
+from db.db import *
 
-# this is the Alembic Config object, which provides
-# access to the values within the .ini file in use.
 config = context.config
 
-# Interpret the config file for Python logging.
-# This line sets up loggers basically.
 fileConfig(config.config_file_name)
 
-# add your model's MetaData object here
-# for 'autogenerate' support
-# from myapp import mymodel
-# target_metadata = mymodel.Base.metadata
-import os, sys
-
 sys.path.append(os.getcwd())
-# from app.db.base import Base
-#from db.db import metadata
-from db.db import *
 
 target_metadata = metadata
 
-# other values from the config, defined by the needs of env.py,
-# can be acquired:
-# my_important_option = config.get_main_option("my_important_option")
-# ... etc.
-import config as local_config
 config.set_main_option("sqlalchemy.url", local_config.settings.database_url)
 
 

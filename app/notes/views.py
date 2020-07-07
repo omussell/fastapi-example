@@ -1,19 +1,24 @@
 # Standard Library
-from typing import List, Optional
+from typing import List
+from typing import Optional
 
-# Project
+# 3rd-party
 import databases
-from notes.models import *
-from notes.service import get_all
 from fastapi import APIRouter
 
+# Project
+from notes.models import *
+from notes.service import create
+from notes.service import delete
+from notes.service import get
+from notes.service import get_all
+from notes.service import update
 
 router = APIRouter()
 
 
-#@router.get("/", response_model=List[NoteBase], tags=["notes"])
-@router.get("/", tags=["notes"])
-async def get_notes(description: Optional[str] = None):
+@router.get("/", response_model=List[NoteBase], tags=["notes"])
+async def get_notes():
     """
     Summary line
 
@@ -27,26 +32,24 @@ async def get_notes(description: Optional[str] = None):
 
     * **url** - *optional* Optionally give the URL.
     """
-    # return [{"username": "Foo"}, {"username": "Bar"}]
-    #notes = Note.__table__.select()
-    #return await database.fetch_all(notes)
     return await get_all()
 
 
-@router.get("/{note_id}", response_model=NoteBase, tags=["notes"])
+@router.get("/{note_id}", response_model=NoteCreate, tags=["notes"])
 async def get_note(note_id: int):
-    # return {"note": note_id}
-    return await database.fetch(Note)
-
-@router.post("/", response_model=NoteBase, tags=["notes"])
-async def create_note(description: str = None):
-    return False
+    return await get(note_id)
 
 
-@router.put("/{note_id}", response_model=NoteBase, tags=["notes"])
-async def update_note(description: str = None):
-    return False
+@router.post("/", response_model=NoteCreate, tags=["notes"])
+async def create_note(note_text: str, note_completed: Optional[bool] = False):
+    return await create(note_text, note_completed)
 
-@router.delete("/{note_id}", response_model=NoteBase, tags=["notes"])
-async def update_note(description: str = None):
-    return False
+
+@router.put("/{note_id}", response_model=NoteUpdate, tags=["notes"])
+async def update_note(note_id: int, note_text: Optional[str], note_completed: Optional[bool]):
+    return await update(note_id, note_text, note_completed)
+
+
+@router.delete("/{note_id}", response_model=NoteDelete, tags=["notes"])
+async def delete_note(note_id: int):
+    return await delete(note_id)

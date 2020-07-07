@@ -1,5 +1,7 @@
+# Standard Library
 from typing import List
 
+# 3rd-party
 import databases
 import sqlalchemy
 from fastapi import FastAPI
@@ -22,9 +24,7 @@ notes = sqlalchemy.Table(
 )
 
 
-engine = sqlalchemy.create_engine(
-    DATABASE_URL, connect_args={"check_same_thread": False}
-)
+engine = sqlalchemy.create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 metadata.create_all(engine)
 
 

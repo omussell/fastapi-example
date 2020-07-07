@@ -1,15 +1,18 @@
 # Standard Library
 from typing import Optional
 
-# Project
-from db.base import database, metadata
-from pydantic import BaseModel
-import sqlalchemy
+# 3rd-party
 import databases
 import orm
+import sqlalchemy
+from pydantic import BaseModel
 
+# Project
+from db.base import database
+from db.base import metadata
 
 # sqlalchemy
+
 
 class Note(orm.Model):
     __tablename__ = "notes"
@@ -23,18 +26,27 @@ class Note(orm.Model):
 
 # pydantic
 
+
 class NoteBase(BaseModel):
-    id: int
-    text: str
-    completed: bool
+    text: Optional[str]
+    completed: Optional[bool]
 
     class Config:
         orm_mode = True
+
 
 class NoteCreate(NoteBase):
     text: str
     completed: Optional[bool] = False
 
+
+class NoteRead(NoteBase):
+    id: int
+
+
 class NoteUpdate(NoteBase):
-    text: Optional[str]
-    completed: Optional[bool]
+    id: int
+
+
+class NoteDelete(NoteBase):
+    id: int

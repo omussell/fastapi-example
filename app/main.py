@@ -1,19 +1,14 @@
+# 3rd-party
+import databases
 from fastapi import FastAPI
 
+# Project
 import config
-
+from db.base import database
 from notes.views import router as notes_router
 
-
-import databases
-
-# SQLAlchemy specific code, as with any other app
-#DATABASE_URL = "sqlite:///./test.db"
-# DATABASE_URL = "postgresql://user:password@postgresserver/db"
-
-database = databases.Database(config.settings.database_url)
-
 app = FastAPI()
+
 
 @app.on_event("startup")
 async def startup():
