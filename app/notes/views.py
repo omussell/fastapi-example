@@ -3,17 +3,9 @@ from typing import List, Optional
 
 # Project
 import databases
-# import notes.models
 from notes.models import *
 from notes.service import get_all
 from fastapi import APIRouter
-#from config import *
-
-# SQLAlchemy specific code, as with any other app
-#DATABASE_URL = "sqlite:///./sqlite.db"
-# DATABASE_URL = "postgresql://user:password@postgresserver/db"
-
-#database = databases.Database(DATABASE_URL)
 
 
 router = APIRouter()
