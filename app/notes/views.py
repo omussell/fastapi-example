@@ -17,7 +17,7 @@ from notes.service import update
 router = APIRouter()
 
 
-@router.get("/", response_model=List[NoteBase], tags=["notes"])
+@router.get("/", response_model=List[NoteRead], tags=["notes"])
 async def get_notes():
     """
     Summary line
