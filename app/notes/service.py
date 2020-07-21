@@ -40,7 +40,9 @@ async def create(note_text: str, note_completed: Optional[bool]) -> Note:
     return note
 
 
-async def update(note_id: int, note_text: Optional[str], note_completed: Optional[bool]) -> Note:
+async def update(
+    note_id: int, note_text: Optional[str], note_completed: Optional[bool]
+) -> Note:
     """
     Args:
 

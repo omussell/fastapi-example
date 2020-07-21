@@ -65,7 +65,9 @@ async def create_note(note_text: str, note_completed: Optional[bool] = False):
 
 
 @router.put("/{note_id}", response_model=NoteUpdate, tags=["notes"])
-async def update_note(note_id: int, note_text: Optional[str], note_completed: Optional[bool]):
+async def update_note(
+    note_id: int, note_text: Optional[str], note_completed: Optional[bool]
+):
     return await update(note_id, note_text, note_completed)
 
 

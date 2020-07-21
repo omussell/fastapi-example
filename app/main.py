@@ -5,8 +5,8 @@ from fastapi import FastAPI
 # Project
 import config
 from db.base import database
-from notes.views import router as notes_router
 from notebooks.views import router as notebooks_router
+from notes.views import router as notes_router
 
 app = FastAPI()
 
