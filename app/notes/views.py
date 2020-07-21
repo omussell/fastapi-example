@@ -37,11 +37,30 @@ async def get_notes():
 
 @router.get("/{note_id}", response_model=NoteCreate, tags=["notes"])
 async def get_note(note_id: int):
+    """
+    Get a specific note.
+
+    Args:
+        note_id: The identifier
+
+    Returns:
+        Note: A single note
+    """
     return await get(note_id)
 
 
 @router.post("/", response_model=NoteCreate, tags=["notes"])
 async def create_note(note_text: str, note_completed: Optional[bool] = False):
+    """
+    Create a note.
+
+    Args:
+        note_text: The info for the text
+        note_completed: Whether or not its done
+
+    Returns:
+        Note: A single note
+    """
     return await create(note_text, note_completed)
 
 

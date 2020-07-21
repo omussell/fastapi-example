@@ -15,9 +15,10 @@ ipdb
 ipython
 isort
 lizard
+mkdocs
+mkdocs-material
+mkdocstrings
 mypy
 pre-commit
 pydocstyle
 radon
-sphinx
-sphinx_rtd_theme

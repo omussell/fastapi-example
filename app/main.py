@@ -6,6 +6,7 @@ from fastapi import FastAPI
 import config
 from db.base import database
 from notes.views import router as notes_router
+from notebooks.views import router as notebooks_router
 
 app = FastAPI()
 
@@ -22,6 +23,9 @@ async def shutdown():
 
 app.include_router(
     notes_router, prefix="/api/v1/notes", tags=["notes"],
+)
+app.include_router(
+    notebooks_router, prefix="/api/v1/notebooks", tags=["notebooks"],
 )
 
 
