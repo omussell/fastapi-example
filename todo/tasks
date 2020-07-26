@@ -1,5 +1,2 @@
 Allow searching in query params by using orm.filter | id:0074ac7fc742d735119522a95faa383f7424ca0c
-Create __version__ file containing the app version and have fastapi docs read this file | id:2b56e5906d2a8744fd39e148ccd4af0ede866da6
-Use pydantic model with views instead of path params so that we use the request body instead | id:347e4badf75d5e0ce5fd9e228cb0400ff982e2ad
-Move all documentation to mkdocs+mkdocstrings | id:d4007f41888d0f2e924ea576b4e696b5098e4116
 Create second set of models/service/views to show usage of foreignkey relationships with orm | id:e19097265f12b3c0feba4634a570f0f9d8b7c017
