@@ -19,8 +19,7 @@ router = APIRouter()
 
 @router.get("/", response_model=List[NotebookRead], tags=["notebooks"])
 async def get_notebooks():
-    """
-    Summary line
+    """Summary line.
 
     Usage:
 

@@ -3,64 +3,38 @@ from typing import List
 from typing import Optional
 
 # Project
-from notes.models import Note
+from notes.models import *
 
 
 async def get_all() -> List[Optional[Note]]:
-    """Returns all Note objects
-
-    Returns:
-
-
-    """
+    """Returns all Note's."""
     notes = await Note.objects.all()
     return notes
 
 
-async def get(note_id: int) -> Optional[Note]:
-    """
-    Args:
-        note_id: ID number of the Note
-
-    Returns:
-        Note
-    """
-    note = await Note.objects.get(id=note_id)
+async def get(note: NoteRead) -> Optional[Note]:
+    """Get a Note."""
+    note = await Note.objects.get(id=note.id)
     return note
 
 
-async def create(note_text: str, note_completed: Optional[bool]) -> Note:
-    """
-    Args:
-
-    Returns:
-
-    """
-    note = await Note.objects.create(text=note_text, completed=note_completed)
+async def create(note_create: NoteCreate) -> Note:
+    """Create a Note."""
+    note = await Note.objects.create(
+        text=note_create.text, completed=note_create.completed
+    )
     return note
 
 
-async def update(
-    note_id: int, note_text: Optional[str], note_completed: Optional[bool]
-) -> Note:
-    """
-    Args:
-
-    Returns:
-
-    """
-    note = await Note.objects.get(id=note_id)
-    await note.update(text=note_text, completed=note_completed)
+async def update(note_update: NoteUpdate) -> Note:
+    """Update a Note."""
+    note = await Note.objects.get(id=note_update.id)
+    await note.update(text=note_update.text, completed=note_update.completed)
     return note
 
 
-async def delete(note_id: int) -> Note:
-    """
-    Args:
-
-    Returns:
-
-    """
+async def delete(note_id: int) -> bool:
+    """Delete a Note."""
     note = await Note.objects.get(id=note_id)
     await note.delete()
-    return note
+    return True

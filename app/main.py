@@ -8,7 +8,27 @@ from db.base import database
 from notebooks.views import router as notebooks_router
 from notes.views import router as notes_router
 
-app = FastAPI()
+# Normal subclass
+# app = FastAPI()
+# With additional info:
+app = FastAPI(
+    title="FastAPI-Example",
+    description="Example project using FastAPI",
+    version=config.settings.version,
+    # The openapi schema is usually served from /openapi.json
+    # You can change the url or disable it with openapi_url
+    # Disabling this will also disable the docs
+    #openapi_url=None,
+    # Swagger UI: served at /docs.
+    # You can set its URL with the parameter docs_url.
+    # You can disable it by setting docs_url=None.
+    # docs_url=None,
+    # ReDoc: served at /redoc.
+    # You can set its URL with the parameter redoc_url.
+    # You can disable it by setting redoc_url=None.
+    # docs_url="/docs",
+    redoc_url=None,
+)
 
 
 @app.on_event("startup")
