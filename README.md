@@ -1,5 +1,9 @@
 # Example FastAPI Application
 
+# Documentation
+
+[Link](https://omussell.github.io/fastapi-example)
+
 move most of this doc into the mkdocs docs. Keep this file basic.
 
 This repo is supposed to be an example FastAPI application with the bare minimum to get an API up and running with FastAPI, SQLAlchemy, Alembic and SQLite. Its purpose is therefore mainly for rapid prototyping and not for production applications.

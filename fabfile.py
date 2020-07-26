@@ -8,6 +8,17 @@ local_env = {
 }
 
 @task
+def usage(c):
+    """
+    Autoformat files
+    fab format
+
+    Lint files
+    fab lint
+    """
+    return print(usage.__doc__)
+
+@task
 def format(c):
     with c.cd(git_root):
         c.run(
@@ -15,6 +26,9 @@ def format(c):
         )
         c.run(
             "isort app -rc", env=local_env,
+        )
+        c.run(
+            "docformatter -ri app", env=local_env,
         )
 
 @task
@@ -24,7 +38,10 @@ def lint(c):
             "black app --check", env=local_env,
         )
         c.run(
-            "isort app --check-only", env=local_env,
+            "isort app -rc --check-only", env=local_env,
+        )
+        c.run(
+            "docformatter -r app", env=local_env,
         )
 
 

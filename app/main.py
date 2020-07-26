@@ -18,7 +18,7 @@ app = FastAPI(
     # The openapi schema is usually served from /openapi.json
     # You can change the url or disable it with openapi_url
     # Disabling this will also disable the docs
-    #openapi_url=None,
+    # openapi_url=None,
     # Swagger UI: served at /docs.
     # You can set its URL with the parameter docs_url.
     # You can disable it by setting docs_url=None.

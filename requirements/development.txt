@@ -1,5 +1,6 @@
 bandit
 black
+docformatter
 fabric
 flake8
 flake8-blind-except
