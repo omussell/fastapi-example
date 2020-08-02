@@ -34,7 +34,7 @@ class NotebookBase(BaseModel):
 
 
 class NotebookCreate(NotebookBase):
-    name: str
+    pass
 
 
 class NotebookRead(NotebookBase):

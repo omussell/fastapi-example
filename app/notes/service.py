@@ -20,8 +20,11 @@ async def get(note: NoteRead) -> Optional[Note]:
 
 async def create(note_create: NoteCreate) -> Note:
     """Create a Note."""
+    related_notebook = await Notebook.objects.get(name=note_create.notebook)
     note = await Note.objects.create(
-        text=note_create.text, completed=note_create.completed
+        notebook=related_notebook,
+        text=note_create.text,
+        completed=note_create.completed,
     )
     return note
 
@@ -29,7 +32,12 @@ async def create(note_create: NoteCreate) -> Note:
 async def update(note_update: NoteUpdate) -> Note:
     """Update a Note."""
     note = await Note.objects.get(id=note_update.id)
-    await note.update(text=note_update.text, completed=note_update.completed)
+    related_notebook = await Notebook.objects.get(name=note.notebook)
+    await note.update(
+        notebook=related_notebook,
+        text=note_update.text,
+        completed=note_update.completed,
+    )
     return note
 
 

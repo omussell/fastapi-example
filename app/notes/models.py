@@ -10,6 +10,7 @@ from pydantic import BaseModel
 # Project
 from db.base import database
 from db.base import metadata
+from notebooks.models import Notebook
 
 # sqlalchemy
 
@@ -20,6 +21,7 @@ class Note(orm.Model):
     __metadata__ = metadata
 
     id = orm.Integer(primary_key=True, index=True)
+    notebook = orm.ForeignKey(Notebook)
     text = orm.String(max_length=100)
     completed = orm.Boolean(default=False)
 
@@ -28,6 +30,7 @@ class Note(orm.Model):
 
 
 class NoteBase(BaseModel):
+    notebook: str
     text: Optional[str]
     completed: Optional[bool]
 

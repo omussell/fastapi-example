@@ -1,8 +1,8 @@
-"""Initial migrations.
+"""init.
 
-Revision ID: 66fe5ab82f9c
+Revision ID: 585e6d25dba8
 Revises:
-Create Date: 2020-07-23 21:37:50.464261
+Create Date: 2020-08-02 11:45:52.860090
 """
 # 3rd-party
 import sqlalchemy as sa
@@ -11,7 +11,7 @@ import sqlalchemy as sa
 from alembic import op
 
 # revision identifiers, used by Alembic.
-revision = "66fe5ab82f9c"
+revision = "585e6d25dba8"
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,8 +29,10 @@ def upgrade():
     op.create_table(
         "notes",
         sa.Column("id", sa.Integer(), nullable=False),
+        sa.Column("notebook", sa.Integer(), nullable=False),
         sa.Column("text", sa.String(length=100), nullable=False),
         sa.Column("completed", sa.Boolean(), nullable=False),
+        sa.ForeignKeyConstraint(["notebook"], ["notebooks.id"],),
         sa.PrimaryKeyConstraint("id"),
     )
     op.create_index(op.f("ix_notes_id"), "notes", ["id"], unique=False)
