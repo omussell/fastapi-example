@@ -1,7 +1,7 @@
 alembic
 fastapi
 httpx
-orm~=0.1
+orm
 python-dotenv
 sqlalchemy
 uvicorn
