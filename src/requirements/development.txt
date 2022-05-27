@@ -1,0 +1,7 @@
+-r production.txt
+
+black
+ipython
+isort
+mypy
+pytest
