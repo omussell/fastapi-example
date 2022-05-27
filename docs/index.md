@@ -6,10 +6,10 @@ Project layout is inspired by [the FastAPI docs](https://fastapi.tiangolo.com/tu
 
 # Features
 
-- FastAPI Router, Pydantic Models, SQLAlchemy Models and Async SQL all tied together
+- FastAPI, Pydantic Models, SQLModel and Async SQL all tied together
 - DB migrations using Alembic
 - Settings via Pydantic / Dotenv
-- Development tools - black, radon, bandit, ipython etc.
+- Development tools - black, ipython, isort etc.
 - Documentation for users and developers with mkdocs and mkdocstrings
 - Scripts via Fabric for formatting, linting, building docs, publishing new versions etc.
 - SQLite by default but can be changed to any database that SQLAlchemy supports.
