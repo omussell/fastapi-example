@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from typing import List
+from typing import List, Dict
 from sqlmodel import Session, select
 from fastapi import HTTPException, Query
 
@@ -29,17 +29,17 @@ app = FastAPI(
 
 
 @app.get("/")
-async def root():
+async def root() -> Dict[str, str]:
     return {"message": "Hello World!"}
 
 @app.get("/plants/", response_model=List[Plant])
-def read_plants(offset: int = 0, limit: int = Query(default=100, lte=100)):
+def read_plants(offset: int = 0, limit: int = Query(default=100, lte=100)) -> List[Plant]:
     with Session(engine) as session:
         plants = session.exec(select(Plant).offset(offset).limit(limit)).all()
         return plants
 
 @app.post("/plants/", response_model=Plant)
-def create_plant(plant: Plant):
+def create_plant(plant: Plant) -> Plant:
     with Session(engine) as session:
         session.add(plant)
         session.commit()
@@ -47,7 +47,7 @@ def create_plant(plant: Plant):
         return plant
 
 @app.get("/plants/{plant_id}", response_model=PlantRead)
-def read_plant(plant_id: int):
+def read_plant(plant_id: int) -> Plant:
     with Session(engine) as session:
         plant = session.get(Plant, plant_id)
         if not plant:
@@ -55,7 +55,7 @@ def read_plant(plant_id: int):
         return plant
 
 @app.patch("/plants/{plant_id}", response_model=PlantRead)
-def update_plant(plant_id: int, plant: PlantUpdate):
+def update_plant(plant_id: int, plant: PlantUpdate) -> Plant:
     with Session(engine) as session:
         db_plant = session.get(Plant, plant_id)
         if not db_plant:
@@ -69,7 +69,7 @@ def update_plant(plant_id: int, plant: PlantUpdate):
         return db_plant
 
 @app.delete("/plants/{plant_id}")
-def delete_plant(plant_id: int):
+def delete_plant(plant_id: int) -> Dict[str, bool]:
     with Session(engine) as session:
         plant = session.get(Plant, plant_id)
         if not plant:
