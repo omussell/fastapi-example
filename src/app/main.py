@@ -1,9 +1,10 @@
 from fastapi import FastAPI
 from typing import List
 from sqlmodel import Session, select
+from fastapi import HTTPException, Query
 
 from db.base import engine
-from db.models import Plant
+from db.models import *
 
 # Normal subclass
 # app = FastAPI()
@@ -32,9 +33,9 @@ async def root():
     return {"message": "Hello World!"}
 
 @app.get("/plants/", response_model=List[Plant])
-def read_plants():
+def read_plants(offset: int = 0, limit: int = Query(default=100, lte=100)):
     with Session(engine) as session:
-        plants = session.exec(select(Plant)).all()
+        plants = session.exec(select(Plant).offset(offset).limit(limit)).all()
         return plants
 
 @app.post("/plants/", response_model=Plant)
@@ -43,7 +44,40 @@ def create_plant(plant: Plant):
         session.add(plant)
         session.commit()
         session.refresh(plant)
-        return hero
+        return plant
+
+@app.get("/plants/{plant_id}", response_model=PlantRead)
+def read_plant(plant_id: int):
+    with Session(engine) as session:
+        plant = session.get(Plant, plant_id)
+        if not plant:
+            raise HTTPException(status_code=404, detail="Plant not found")
+        return plant
+
+@app.patch("/plants/{plant_id}", response_model=PlantRead)
+def update_plant(plant_id: int, plant: PlantUpdate):
+    with Session(engine) as session:
+        db_plant = session.get(Plant, plant_id)
+        if not db_plant:
+            raise HTTPException(status_code=404, detail="Plant not found")
+        plant_data = plant.dict(exclude_unset=True)
+        for key, value in plant_data.items():
+            setattr(db_plant, key, value)
+        session.add(db_plant)
+        session.commit()
+        session.refresh(db_plant)
+        return db_plant
+
+@app.delete("/plants/{plant_id}")
+def delete_plant(plant_id: int):
+    with Session(engine) as session:
+        plant = session.get(Plant, plant_id)
+        if not plant:
+            raise HTTPException(status_code=404, detail="Plant not found")
+        session.delete(plant)
+        session.commit()
+        return {"ok": True}
+
 
 
 #@app.post(
