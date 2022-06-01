@@ -1,2 +1,0 @@
-Allow searching in query params by using orm.filter | id:0074ac7fc742d735119522a95faa383f7424ca0c
-Create second set of models/service/views to show usage of foreignkey relationships with orm | id:e19097265f12b3c0feba4634a570f0f9d8b7c017

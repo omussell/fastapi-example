@@ -1,7 +1,0 @@
-alembic
-fastapi
-httpx
-orm
-python-dotenv
-sqlalchemy
-uvicorn

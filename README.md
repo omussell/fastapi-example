@@ -26,10 +26,6 @@ uvicorn app.main:app
 ## Documentation
 - [mkdocs](https://www.mkdocs.org/)
 
-### Mkdocs
-
-
-
 ## Development Tools
 - [ipython](https://ipython.readthedocs.io/en/stable/)
 
